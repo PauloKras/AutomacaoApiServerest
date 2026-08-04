@@ -1,4 +1,4 @@
-package com.serverest.login.entities;
+package com.serverest.login.payloads;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

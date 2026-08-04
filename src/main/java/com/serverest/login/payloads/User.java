@@ -1,7 +1,9 @@
-package com.serverest.login.entities;
+package com.serverest.login.payloads;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     @JsonProperty("nome")
     private String nome;

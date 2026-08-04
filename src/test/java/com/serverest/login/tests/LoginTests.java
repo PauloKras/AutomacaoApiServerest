@@ -1,8 +1,9 @@
 package com.serverest.login.tests;
 
-import com.serverest.login.entities.LoginRequest;
-import com.serverest.login.entities.LoginResponse;
-import com.serverest.login.entities.User;
+import com.serverest.login.payloads.LoginRequest;
+import com.serverest.login.payloads.LoginResponse;
+import com.serverest.login.payloads.User;
+import io.restassured.response.Response;
 import com.serverest.login.services.AuthService;
 import com.serverest.login.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,9 +23,14 @@ public class LoginTests {
         authService = new AuthService();
         userService = new UserService();
 
-        String uniqueEmail = "testuser_" + System.currentTimeMillis() + "@example.com";
+        String uniqueEmail = "testuser_" + System.nanoTime() + "@example.com"; // Use nanoTime for higher uniqueness
         testUser = new User("Test User", uniqueEmail, "password123", "false");
-        userService.registerUser(testUser);
+        
+        // Register the user and assert success
+        Response registrationResponse = userService.registerUser(testUser);
+        registrationResponse.then().statusCode(201);
+        // Optionally, extract the _id if needed later, but not strictly for login
+        testUser.set_id(registrationResponse.jsonPath().getString("_id"));
     }
 
     @Test

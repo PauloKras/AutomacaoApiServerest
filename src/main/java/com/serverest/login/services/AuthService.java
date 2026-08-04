@@ -1,7 +1,7 @@
 package com.serverest.login.services;
 
-import com.serverest.login.entities.LoginRequest;
-import com.serverest.login.entities.LoginResponse;
+import com.serverest.login.payloads.LoginRequest;
+import com.serverest.login.payloads.LoginResponse;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;

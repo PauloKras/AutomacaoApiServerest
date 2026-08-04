@@ -27,7 +27,7 @@ A estrutura do projeto segue as convenções Maven e padrões de automação de 
             └── com
                 └── serverest
                     └── login
-                        ├── entities      // Modelos de dados (POJOs) para requisições e respostas (e.g., LoginRequest, LoginResponse, User)
+                        ├── payloads      // Modelos de dados (POJOs) para requisições e respostas (e.g., LoginRequest, LoginResponse, User)
                         ├── services      // Camada de serviços da API (equivalente a Page Objects para APIs, e.g., AuthService, UserService)
                         └── utils         // Classes utilitárias (e.g., ConfigurationManager)
         └── resources
@@ -107,4 +107,3 @@ As seguintes variáveis devem ser definidas no GitLab (Settings > CI/CD > Variab
 *   Para fins de teste, novos usuários são registrados dinamicamente antes dos testes de login para garantir isolamento. A exclusão de usuários não foi implementada nos testes para manter o foco na automação de login, mas em um cenário real seria uma boa prática incluir a limpeza de dados.
 
 ---
-Desenvolvido por Roo.
