@@ -54,6 +54,33 @@ public class LoginTests {
     }
 
     @Test
+    @DisplayName("Não deve realizar login sem informar email")
+    void shouldNotLoginWithoutEmail() {
+        LoginRequest loginRequest = new LoginRequest(null, testUser.getPassword());
+        int statusCode = authService.getLoginStatusCode(loginRequest);
+
+        assertEquals(400, statusCode);
+    }
+
+    @Test
+    @DisplayName("Não deve realizar login sem informar senha")
+    void shouldNotLoginWithoutPassword() {
+        LoginRequest loginRequest = new LoginRequest(testUser.getEmail(), null);
+        int statusCode = authService.getLoginStatusCode(loginRequest);
+
+        assertEquals(400, statusCode);
+    }
+
+    @Test
+    @DisplayName("Não deve realizar login sem informar email e senha")
+    void shouldNotLoginWithoutEmailAndPassword() {
+        LoginRequest loginRequest = new LoginRequest(null, null);
+        int statusCode = authService.getLoginStatusCode(loginRequest);
+
+        assertEquals(400, statusCode);
+    }
+
+    @Test
     @DisplayName("Não deve realizar login com senha inválido")
     void shouldNotLoginWithInvalidPassword() {
         LoginRequest loginRequest = new LoginRequest(testUser.getEmail(), "wrongpassword");

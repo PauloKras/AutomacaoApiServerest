@@ -9,7 +9,7 @@ import com.serverest.login.utils.ConfigurationManager;
 
 public class AuthService {
 
-    private static final String BASE_URL = ConfigurationManager.getProperty("api.base.url");
+    private static final String BASE_URL = ConfigurationManager.getProperty("api_base_url");
     private static final String LOGIN_ENDPOINT = "/login";
 
     public AuthService() {

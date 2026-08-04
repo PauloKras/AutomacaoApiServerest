@@ -8,7 +8,7 @@ import com.serverest.login.utils.ConfigurationManager;
 
 public class UserService {
 
-    private static final String BASE_URL = ConfigurationManager.getProperty("api.base.url");
+    private static final String BASE_URL = ConfigurationManager.getProperty("api_base_url");
     private static final String USERS_ENDPOINT = "/usuarios";
 
     public UserService() {
@@ -35,5 +35,33 @@ public class UserService {
                 .when()
                 .post(USERS_ENDPOINT);
         return response.getStatusCode();
+    }
+
+    public Response getUserById(String id) {
+        return RestAssured.given()
+                .when()
+                .get(USERS_ENDPOINT + "/" + id)
+                .then()
+                .extract().response();
+    }
+
+    public Response updateUser(String id, User user, String token) {
+        return RestAssured.given()
+                .header("Authorization", token)
+                .contentType(ContentType.JSON)
+                .body(user)
+                .when()
+                .put(USERS_ENDPOINT + "/" + id)
+                .then()
+                .extract().response();
+    }
+
+    public Response deleteUser(String id, String token) {
+        return RestAssured.given()
+                .header("Authorization", token)
+                .when()
+                .delete(USERS_ENDPOINT + "/" + id)
+                .then()
+                .extract().response();
     }
 }
