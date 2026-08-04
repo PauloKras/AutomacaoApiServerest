@@ -1,0 +1,38 @@
+image: maven:3.8.5-openjdk-11
+
+stages:
+  - build
+  - test
+
+variables:
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  # Define API_BASE_URL as a CI/CD variable in GitLab settings
+  # Define TEST_USER_EMAIL as a CI/CD variable in GitLab settings
+  # Define TEST_USER_PASSWORD as a CI/CD variable in GitLab settings
+  # Define TEST_ADMIN_EMAIL as a CI/CD variable in GitLab settings
+  # Define TEST_ADMIN_PASSWORD as a CI/CD variable in GitLab settings
+
+cache:
+  paths:
+    - .m2/repository/
+
+build_job:
+  stage: build
+  script:
+    - echo "Building the project..."
+    - mvn $MAVEN_CLI_OPTS compile
+
+test_job:
+  stage: test
+  script:
+    - echo "Running tests..."
+    # Create config.properties dynamically using CI/CD variables
+    - echo "api.base.url=$API_BASE_URL" > src/main/resources/config.properties
+    - echo "test.user.email=$TEST_USER_EMAIL" >> src/main/resources/config.properties
+    - echo "test.user.password=$TEST_USER_PASSWORD" >> src/main/resources/config.properties
+    - echo "test.admin.email=$TEST_ADMIN_EMAIL" >> src/main/resources/config.properties
+    - echo "test.admin.password=$TEST_ADMIN_PASSWORD" >> src/main/resources/config.properties
+    - cat src/main/resources/config.properties # For debugging, remove in production
+    - mvn $MAVEN_CLI_OPTS test
+  needs: ["build_job"]
