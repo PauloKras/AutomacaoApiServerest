@@ -1,0 +1,41 @@
+name: Maven CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+
+    - name: Create config.properties for tests
+      run: |
+        mkdir -p src/main/resources
+        echo "api_base_url=${{ secrets.API_BASE_URL }}" > src/main/resources/config.properties
+        echo "test_user_email=${{ secrets.TEST_USER_EMAIL }}" >> src/main/resources/config.properties
+        echo "test_user_password=${{ secrets.TEST_USER_PASSWORD }}" >> src/main/resources/config.properties
+        echo "test_admin_email=${{ secrets.TEST_ADMIN_EMAIL }}" >> src/main/resources/config.properties
+        echo "test_admin_password=${{ secrets.TEST_ADMIN_PASSWORD }}" >> src/main/resources/config.properties
+        echo "API_BASE_URL configurada"
+        grep "api_base_url" src/main/resources/config.properties
+
+    - name: Run tests with Maven
+      run: mvn -B test --file pom.xml

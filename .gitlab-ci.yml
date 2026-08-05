@@ -16,7 +16,7 @@ build_job:
   stage: build
   script:
     - echo "Building the project..."
-    - mvn $MAVEN_CLI_OPTS compile
+    - mvn $MAVEN_CLI_OPTS install
 
 test_job:
   stage: test
