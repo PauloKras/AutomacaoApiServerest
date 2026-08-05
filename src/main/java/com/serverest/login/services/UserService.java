@@ -12,6 +12,11 @@ public class UserService {
     private static final String USERS_ENDPOINT = "/usuarios";
 
     public UserService() {
+          System.out.println("BASE_URL carregada: " + BASE_URL);
+
+        if (BASE_URL == null || BASE_URL.isBlank()) {
+            throw new IllegalStateException("api_base_url não foi carregada do config.properties");
+        }
         RestAssured.baseURI = BASE_URL;
     }
 

@@ -7,11 +7,6 @@ stages:
 variables:
   MAVEN_CLI_OPTS: "--batch-mode"
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
-  # Define API_BASE_URL as a CI/CD variable in GitLab settings
-  # Define TEST_USER_EMAIL as a CI/CD variable in GitLab settings
-  # Define TEST_USER_PASSWORD as a CI/CD variable in GitLab settings
-  # Define TEST_ADMIN_EMAIL as a CI/CD variable in GitLab settings
-  # Define TEST_ADMIN_PASSWORD as a CI/CD variable in GitLab settings
 
 cache:
   paths:
@@ -28,11 +23,17 @@ test_job:
   script:
     - mkdir -p src/main/resources
     - echo "Running tests..."
-    # Create config.properties dynamically using CI/CD variables
+
     - echo "api_base_url=$API_BASE_URL" > src/main/resources/config.properties
     - echo "test_user_email=$TEST_USER_EMAIL" >> src/main/resources/config.properties
     - echo "test_user_password=$TEST_USER_PASSWORD" >> src/main/resources/config.properties
     - echo "test_admin_email=$TEST_ADMIN_EMAIL" >> src/main/resources/config.properties
     - echo "test_admin_password=$TEST_ADMIN_PASSWORD" >> src/main/resources/config.properties
+
+    # Verificações temporárias
+    - echo "API_BASE_URL configurada: ${API_BASE_URL:+SIM}"
+    - grep "api_base_url" src/main/resources/config.properties
+
     - mvn $MAVEN_CLI_OPTS test
+
   needs: ["build_job"]
