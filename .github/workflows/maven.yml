@@ -23,19 +23,15 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
-
     - name: Create config.properties for tests
       run: |
-        mkdir -p src/main/resources
-        echo "api_base_url=${{ secrets.API_BASE_URL }}" > src/main/resources/config.properties
-        echo "test_user_email=${{ secrets.TEST_USER_EMAIL }}" >> src/main/resources/config.properties
-        echo "test_user_password=${{ secrets.TEST_USER_PASSWORD }}" >> src/main/resources/config.properties
-        echo "test_admin_email=${{ secrets.TEST_ADMIN_EMAIL }}" >> src/main/resources/config.properties
-        echo "test_admin_password=${{ secrets.TEST_ADMIN_PASSWORD }}" >> src/main/resources/config.properties
-        echo "API_BASE_URL configurada"
-        grep "api_base_url" src/main/resources/config.properties
+        mkdir -p src/test/resources
+        echo "api_base_url=${{ secrets.API_BASE_URL }}" > src/test/resources/config.properties
+        echo "test_user_email=${{ secrets.TEST_USER_EMAIL }}" >> src/test/resources/config.properties
+        echo "test_user_password=${{ secrets.TEST_USER_PASSWORD }}" >> src/test/resources/config.properties
+        echo "test_admin_email=${{ secrets.TEST_ADMIN_EMAIL }}" >> src/test/resources/config.properties
+        echo "test_admin_password=${{ secrets.TEST_ADMIN_PASSWORD }}" >> src/test/resources/config.properties
+        echo "config.properties gerado com sucesso"
 
-    - name: Run tests with Maven
-      run: mvn -B test --file pom.xml
+    - name: Build and run tests with Maven
+      run: mvn -B package --file pom.xml
