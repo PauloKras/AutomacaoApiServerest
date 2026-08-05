@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.serverest.login</groupId>
-    <artifactId>ServerestLoginAutomation</artifactId>
+    <artifactId>AutomacaoApiServerest</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>ServerestLoginAutomation</name>
-    <description>Projeto de automação de login para a API Serverest</description>
+    <name>AutomacaoApiServerest</name>
+    <description>Projeto de automação para a API Serverest</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
