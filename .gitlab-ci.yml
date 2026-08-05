@@ -28,7 +28,7 @@ test_job:
     - echo "test_user_password=$TEST_USER_PASSWORD" >> src/main/resources/config.properties
     - echo "test_admin_email=$TEST_ADMIN_EMAIL" >> src/main/resources/config.properties
     - echo "test_admin_password=$TEST_ADMIN_PASSWORD" >> src/main/resources/config.properties
-    - echo "API_BASE_URL configurada: ${API_BASE_URL:+SIM}"
+    - echo "API_BASE_URL configurada"
     - grep "api_base_url" src/main/resources/config.properties
     - mvn $MAVEN_CLI_OPTS test
   needs:
