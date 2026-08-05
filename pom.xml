@@ -10,7 +10,6 @@
     <name>AutomacaoApiServerest</name>
     <description>Projeto de automação para a API Serverest</description>
 
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
